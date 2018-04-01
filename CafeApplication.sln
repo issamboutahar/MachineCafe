@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CafeApplication.Web", "Cafe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CafeApplication.Service", "CafeApplication.Service\CafeApplication.Service.csproj", "{71553A9D-616D-45E9-9DAC-EADFE1E9CC7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CafeApplication.XUnitTest", "CafeApplication.XUnitTest\CafeApplication.XUnitTest.csproj", "{2F2E5997-748D-4B97-8C93-CA5956B0DFDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CafeApplication.XUnitTest", "CafeApplication.XUnitTest\CafeApplication.XUnitTest.csproj", "{2F2E5997-748D-4B97-8C93-CA5956B0DFDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +20,7 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F8B2A999-717C-47EA-9850-78FDD3484041}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8B2A999-717C-47EA-9850-78FDD3484041}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8B2A999-717C-47EA-9850-78FDD3484041}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8B2A999-717C-47EA-9850-78FDD3484041}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7C0286DC-49C0-4287-85D9-BADFBF1F8A74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
