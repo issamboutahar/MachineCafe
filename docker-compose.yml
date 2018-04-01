@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  cafeapplication:
+    image: cafeapplication
+    build:
+      context: .
+      dockerfile: CafeApplication\Dockerfile

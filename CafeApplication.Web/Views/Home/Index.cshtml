@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+@using CafeApplication.Web.Models
+@model TypeBoissonViewModel
+
+
+<html lang="en">
+
+<head>
+
+    <title>ASP.NET Web API - Issam</title>
+
+    <link href="~/css/site.css" rel="stylesheet" />
+
+    <script src="~/js/jquery-3.3.1.min.js"
+            type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+
+            $.getJSON('api/consommateur/', function (data) {
+
+                //clear the current content of the select
+                $('#Consommateurs').empty();
+
+
+                $('#Consommateurs').append('<option value=0>-Please select-</option>');
+                //iterate over the data and append a select option
+                $.each(data, function (i, item) {
+                    $('#Consommateurs').append('<option value=' + item.id + '>' + item.prenom + ' ' + item.nom + '</option>');
+                })
+            });
+
+        });
+
+        function RecupererBadge() {
+
+            if ($('#Consommateurs').val() != 0) {
+                $.getJSON('api/consommateur/' + $('#Consommateurs').val(), function (data) {
+ 
+                    if (data.derniereSelection == true) {
+                        
+                        Modifier();
+                     
+                    }
+
+                });
+
+            }
+            
+        };
+
+        function Enum(valueMap) {
+            // We store the enumeration object
+            this._valueMap = valueMap;
+            this._valueToLabelMap = {};
+            var that = this;
+
+            // This will create an inverse map: values to labels
+            Object.keys(valueMap).forEach(function (label) {
+                that._valueToLabelMap[valueMap[label]] = label;
+            });
+        };
+
+        Enum.prototype = {
+            // Getting the whole label is as simple as accessing
+            // the inverse map where values are the object properties!
+            getLabel: function (value) {
+                if (this._valueToLabelMap.hasOwnProperty(value)) {
+                    return this._valueToLabelMap[value];
+                } else {
+                    throw Error("Enum instance has no defined '" + value + "' value");
+                }
+            }
+        };
+
+        var myEnum = new Enum({
+            Cafe: 1,
+
+            Chocolat: 2,
+
+            LeThe: 3,
+        });
+
+        function Modifier()
+        {
+            
+            $.getJSON('api/consommation/' + $('#Consommateurs').val(), function (data1) {
+
+                $('#TypeBoisson').val(myEnum.getLabel(data1.typeBoisson) );
+                $('#NombreCuillere').val(data1.nombreCuilliere);
+                $("#PropreMug").prop("checked", data1.propreMug);
+ 
+            });
+
+
+        };
+
+        function ajouter() {
+            var model = new FormData($('form'));
+            
+            model.ConsommateurID = $('#Consommateurs').val();
+            model.TypeBoisson = $('#TypeBoisson').val();
+            model.NombreCuilliere = $('#NombreCuillere').val();
+            model.PropreMug = $('#PropreMug').is(":checked");
+            model.DerniereSelection = $('#DerniereSelection').is(":checked");
+            
+            
+            $.ajax(
+                {
+                 
+                url: '@Url.Action("Post","Consommation")',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                type: 'post',
+                    cache: false,
+                    data: JSON.stringify(model),
+                    success: function (data) { location.reload(); alert("Enjoy Your Drink / appréciez votre boisson"); },
+                    error: function (f1, f2, f3) { location.reload(); }
+            });
+
+           
+
+        }
+
+    </script>
+
+
+
+</head>
+
+<body id="body">
+
+    <fieldset id="infoForm">
+
+        <div class="main-content">
+
+            <div>
+
+                <h1>Machine de Café </h1>
+
+                <ul id="items" />
+
+            </div>
+
+            <div>
+                @Html.LabelFor(m => Model.ConsommateurID)
+                @Html.DropDownListFor(m => Model.ConsommateurID, new SelectList(new[] { "" }), "-Please select-", new { @class = "", onchange = "RecupererBadge()", @id = "Consommateurs" })
+            </div>
+
+
+            <div>
+                @Html.LabelFor(m => Model.TypeBoisson)
+
+                @Html.DropDownListFor(m => m.TypeBoisson, new SelectList(Enum.GetValues(typeof(TypeBoisson))), "-Please select-", new { @class = "", @id = "TypeBoisson" })
+
+            </div>
+
+
+
+            <div>
+                @Html.LabelFor(m => Model.NombreCuilliere)
+
+                @Html.DropDownListFor(m => m.NombreCuilliere, new SelectList(new List<int> { 1, 2, 3, 4, 5 }), "-Please select-", new { @class = "", @id = "NombreCuillere" })
+
+
+            </div>
+
+            <div>
+                @Html.LabelFor(m => Model.PropreMug)
+                @Html.CheckBoxFor(m => m.PropreMug, new { @class = "", @id = "PropreMug" })
+
+            </div>
+
+            <div>
+                @Html.LabelFor(m => Model.DerniereSelection)
+                @Html.CheckBoxFor(m => m.DerniereSelection, new { @class = "", @id = "DerniereSelection" })
+
+            </div>
+
+            <div>
+
+
+
+                <input type="button" value="GO" onclick="ajouter();" />
+                @*<input type="submit" />*@
+
+
+
+            </div>
+
+
+
+
+
+        </div>
+    </fieldset>
+
+
+</body>
+
+</html>
