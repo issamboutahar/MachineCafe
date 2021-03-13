@@ -21,7 +21,7 @@ namespace CafeApplication.Service.Service
 
         IBreuvage ObtenirDerniereConsommationParClient(int idClient);
 
-        void AjouterConsommation(IBreuvage cons);
+        void AjouterConsommation(IBreuvage cons, int test);
 
         void MettreAJourConsommateur(int ConsommateurID);
 

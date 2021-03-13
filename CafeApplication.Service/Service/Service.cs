@@ -28,7 +28,7 @@ namespace CafeApplication.Service.Service
 
 
         }
-        public void AjouterConsommation(IBreuvage cons)
+        public void AjouterConsommation(IBreuvage cons, int test)
         {
             IBreuvage breuvage = null;
 

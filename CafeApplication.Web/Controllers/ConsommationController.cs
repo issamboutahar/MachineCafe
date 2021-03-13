@@ -53,7 +53,7 @@ namespace CafeApplication.Controllers
         [HttpPost]
         public IActionResult Post([FromBody]TypeBoissonViewModel cons)
         {
-            _serv.AjouterConsommation(_mapper.Map<IBreuvage>( cons));
+            _serv.AjouterConsommation(_mapper.Map<IBreuvage>( cons), 0);
             
             return Ok(cons);
 
